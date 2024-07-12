@@ -1,12 +1,12 @@
-package config
+package fausto.fan.project.framework.starter.base.config
 
-import ApplicationContextHolder
-import init.ApplicationContentPostPostProcessor
+import fausto.fan.project.framework.starter.base.ApplicationContextHolder
+import fausto.fan.project.framework.starter.base.init.ApplicationContentPostPostProcessor
+import fausto.fan.project.framework.starter.base.safa.FastJsonSafeMode
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.context.ApplicationContext
 import org.springframework.context.annotation.Bean
-import safa.FastJsonSafeMode
 
 /**
  * 应用程序基础配置类，用于在Spring Boot应用程序中自动配置一些常见的Bean。

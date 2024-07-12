@@ -1,4 +1,4 @@
-package safa
+package fausto.fan.project.framework.starter.base.safa
 
 import org.springframework.beans.factory.InitializingBean
 

@@ -1,4 +1,4 @@
-package constant
+package fausto.fan.project.framework.starter.base.constant
 
 const val USER_ID_KEY = "userId"
 const val USER_NAME_KEY = "username"

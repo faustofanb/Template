@@ -1,3 +1,5 @@
+package fausto.fan.project.framework.starter.base
+
 import java.util.concurrent.ConcurrentHashMap
 
 /**

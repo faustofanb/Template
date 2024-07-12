@@ -25,6 +25,7 @@
         <skipTests>true</skipTests>
         <docker.host>http://127.0.0.1:2375</docker.host>
         <docker.maven.plugin.version>0.40.0</docker.maven.plugin.version>
+        <parent.root.dir>Z:\Tutorial\Kotlin\Template</parent.root.dir>
     </properties>
 
     <dependencies>
@@ -150,7 +151,8 @@
                         <plugin>lombok</plugin>
                     </compilerPlugins>
                     <pluginOptions>
-                        <option>lombok:config=./lombok.config</option>
+                        <!--suppress MybatisXMapperXmlInspection, MavenModelInspection -->
+                        <option>lombok:config=${parent.root.dir}/lombok.config</option>
                     </pluginOptions>
                 </configuration>
                 <dependencies>

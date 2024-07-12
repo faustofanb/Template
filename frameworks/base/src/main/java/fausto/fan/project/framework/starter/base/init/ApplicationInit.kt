@@ -1,4 +1,4 @@
-package init
+package fausto.fan.project.framework.starter.base.init
 
 import org.springframework.boot.context.event.ApplicationReadyEvent
 import org.springframework.context.ApplicationContext

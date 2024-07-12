@@ -1,3 +1,5 @@
+package fausto.fan.project.framework.starter.base
+
 import org.springframework.context.ApplicationContext
 import org.springframework.context.ApplicationContextAware
 
@@ -16,7 +18,7 @@ object ApplicationContextHolder : ApplicationContextAware {
      * @param applicationContext Spring应用程序上下文实例。
      */
     override fun setApplicationContext(applicationContext: ApplicationContext) {
-        this.CONTEXT = applicationContext
+        CONTEXT = applicationContext
     }
 
     /**
