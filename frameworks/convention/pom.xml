@@ -5,23 +5,16 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>fausto.fan.project</groupId>
-        <artifactId>project-all</artifactId>
+        <artifactId>frameworks</artifactId>
         <version>0.0.1</version>
     </parent>
 
-    <artifactId>frameworks</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>project-convention-spring-boot-starter</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
-    <modules>
-        <module>base</module>
-        <module>user</module>
-        <module>convention</module>
-    </modules>
 
 </project>
