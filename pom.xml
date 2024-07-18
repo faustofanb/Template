@@ -25,7 +25,7 @@
         <skipTests>true</skipTests>
         <docker.host>http://127.0.0.1:2375</docker.host>
         <docker.maven.plugin.version>0.40.0</docker.maven.plugin.version>
-        <parent.root.dir>Z:\Tutorial\Kotlin\Template</parent.root.dir>
+        <parent.root.dir>/home/fausto/IdeaProjects/Template</parent.root.dir>
     </properties>
 
     <dependencies>
