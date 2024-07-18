@@ -23,6 +23,7 @@
         <module>user</module>
         <module>convention</module>
         <module>designpattern</module>
+        <module>common</module>
     </modules>
 
 </project>
