@@ -73,7 +73,13 @@ interface DistributedCache : Cache {
      * @param timeUnit 时间单位。
      * @return 缓存的值，如果不存在则为null。
      */
-    fun <T> get(key: String, clazz: Class<T>, cacheLoader:() -> T, timeout: Long, timeUnit: TimeUnit = TimeUnit.MILLISECONDS ): T?
+    fun <T> get(
+        key: String,
+        clazz: Class<T>,
+        cacheLoader: () -> T,
+        timeout: Long,
+        timeUnit: TimeUnit = TimeUnit.MILLISECONDS
+    ): T?
 
     /**
      * 安全地从缓存中获取值，提供了过滤和缓存不存在时的处理逻辑。
@@ -95,8 +101,8 @@ interface DistributedCache : Cache {
         timeout: Long,
         timeUnit: TimeUnit = TimeUnit.MILLISECONDS,
         bloomFilter: RBloomFilter<String>? = null,
-        cacheCheckFilter: ((param: T) -> Boolean)? = null,
-        cacheGetIfAbsent: ((param: T) -> Void)? = null
+        cacheCheckFilter: ((param: String) -> Boolean)? = null,
+        cacheGetIfAbsent: ((param: String) -> Void)? = null
     ): T?
 
     /**
@@ -118,7 +124,13 @@ interface DistributedCache : Cache {
      * @param timeUnit 时间单位。
      * @param bloomFilter 布隆过滤器，用于检查是否已存在相同键。
      */
-    fun safePut(key: String, value: Any, timeout: Long, timeUnit: TimeUnit = TimeUnit.MILLISECONDS, bloomFilter: RBloomFilter<String>)
+    fun safePut(
+        key: String,
+        value: Any,
+        timeout: Long,
+        timeUnit: TimeUnit = TimeUnit.MILLISECONDS,
+        bloomFilter: RBloomFilter<String>
+    )
 
     /**
      * 统计现有键的数量。
@@ -134,7 +146,7 @@ interface DistributedCache : Cache {
  * MultistageCache接口定义了一个多阶段缓存，它是Cache接口的子接口。
  * 多阶段缓存允许在不同的缓存阶段存储和检索数据，以优化访问效率和缓存策略。
  */
-interface MultistageCache: Cache
+interface MultistageCache : Cache
 
 
 
