@@ -55,7 +55,7 @@ interface Cache {
      *
      * @return 缓存的实例。
      */
-    fun getInstance(): Cache
+    fun getInstance(): Any
 }
 
 /**
@@ -129,7 +129,7 @@ interface DistributedCache : Cache {
         value: Any,
         timeout: Long,
         timeUnit: TimeUnit = TimeUnit.MILLISECONDS,
-        bloomFilter: RBloomFilter<String>
+        bloomFilter: RBloomFilter<String>?
     )
 
     /**
