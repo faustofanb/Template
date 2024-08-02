@@ -1,8 +1,8 @@
 package fausto.fan.project.framework.starter.distributedid.core.snowflake
 
-import cn.hutool.core.lang.Snowflake
 import fausto.fan.project.framework.starter.base.Slf4j
 import fausto.fan.project.framework.starter.base.Slf4j.Companion.log
+import fausto.fan.project.framework.starter.distributedid.toolkit.SnowflakeIdUtil
 import org.springframework.beans.factory.annotation.Value
 
 /**

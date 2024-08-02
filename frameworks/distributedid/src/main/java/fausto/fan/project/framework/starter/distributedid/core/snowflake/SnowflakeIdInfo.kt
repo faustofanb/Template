@@ -1,7 +1,5 @@
 package fausto.fan.project.framework.starter.distributedid.core.snowflake
 
-import cn.hutool.core.lang.Snowflake
-
 /**
  * SnowflakeIdInfo 数据类用于解析 Snowflake 算法生成的 ID 的各部分信息。
  *
@@ -44,18 +42,20 @@ fun Snowflake.parseSnowflakeId(snowflakeId: Long): SnowflakeIdInfo {
         // 解析出工作机器 ID
         workerId = (
                 (snowflakeId shr getField("WORKER_ID_SHIFT").toInt())
-                    and
-                (-1L shl getField("WORKER_ID_BITS").toInt()).inv()
-        ).toInt()
+                        and
+                        (-1L shl getField("WORKER_ID_BITS").toInt()).inv()
+                ).toInt()
         // 解析出数据中心 ID
         dataCenterId = (
                 (snowflakeId shr getField("DATA_CENTER_ID_SHIFT").toInt())
-                    and
-                (-1L shl getField("DATA_CENTER_ID_BITS").toInt()).inv()
-        ).toInt()
+                        and
+                        (-1L shl getField("DATA_CENTER_ID_BITS").toInt()).inv()
+                ).toInt()
         // 解析出时间戳，并加上起始时间戳（twepoch），得到绝对时间
         timestamp = (snowflakeId shr getField("TIMESTAMP_LEFT_SHIFT").toInt()) + getField("twepoch")
     }
 }
+
+
 
 
