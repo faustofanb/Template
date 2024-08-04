@@ -118,13 +118,14 @@ class RandomWorkIdChoose: AbstractWorkIdChooseTemplate(), InitializingBean {
         chooseAndInit()
     }
 
-    /**
-     * 生成随机数
-     * @param start 起始值
-     * @param end 结束值
-     * @return 返回随机数
-     */
+
     companion object {
+        /**
+         * 生成随机数
+         * @param start 起始值
+         * @param end 结束值
+         * @return 返回随机数
+         */
         private fun getRandom(start: Int, end: Int): Long {
             return (Math.random() * (end - start + 1) + start).toLong()
         }
