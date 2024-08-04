@@ -1,9 +1,16 @@
 package fausto.fan.project.framework.starter.distributedid.core.snowflake
 
+import cn.hutool.core.collection.CollUtil
+import fausto.fan.project.framework.starter.base.ApplicationContextHolder
 import fausto.fan.project.framework.starter.base.Slf4j
 import fausto.fan.project.framework.starter.base.Slf4j.Companion.log
 import fausto.fan.project.framework.starter.distributedid.toolkit.SnowflakeIdUtil
+import org.springframework.beans.factory.InitializingBean
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.core.io.ClassPathResource
+import org.springframework.data.redis.core.StringRedisTemplate
+import org.springframework.data.redis.core.script.DefaultRedisScript
+import org.springframework.scripting.support.ResourceScriptSource
 
 /**
  * AbstractWorkIdChooseTemplate 是一个抽象类，用于提供一个模板方法来选择和初始化 Snowflake 算法的工作ID。
@@ -43,3 +50,107 @@ abstract class AbstractWorkIdChooseTemplate {
         SnowflakeIdUtil.initSnowflake(snowflake)
     }
 }
+
+/**
+ * 本地Redis工作ID选择器
+ * 该类通过RedisLua脚本从Redis中选择工作ID
+ */
+@Slf4j
+class LocalRedisWorkIdChoose(
+    // 默认使用ApplicationContextHolder获取StringRedisTemplate实例
+    private val stringRedisTemplate: StringRedisTemplate = ApplicationContextHolder.getBean(clazz = StringRedisTemplate::class.java)!!
+): AbstractWorkIdChooseTemplate(), InitializingBean{
+    /**
+     * 选择工作ID
+     * @return 返回工作ID封装
+     */
+    override fun chooseWorkId(): WorkIdWrapper {
+        // 设置Redis脚本
+        val redisScript = DefaultRedisScript<List<Long>>().apply {
+            setScriptSource(ResourceScriptSource(ClassPathResource("lua/chooseWorkIdLua.lua")))
+        }
+        var luaResultList: List<Long>? = null
+
+        // 执行Redis脚本获取工作ID
+        try {
+            luaResultList = stringRedisTemplate.execute(redisScript, mutableListOf())
+        } catch (ex: Exception) {
+            // 异常处理：记录错误日志
+            log.error("Redis Lua 脚本获取 WorkId 失败", ex)
+        }
+
+        // 根据结果生成或随机选择工作ID
+        return if(CollUtil.isNotEmpty(luaResultList)){
+            WorkIdWrapper(luaResultList!![0], luaResultList[1])
+        } else {
+            RandomWorkIdChoose().chooseWorkId()
+        }
+    }
+
+    /**
+     * 初始化工作ID选择器
+     */
+    override fun afterPropertiesSet() {
+        chooseAndInit()
+    }
+
+}
+
+/**
+ * 随机工作ID选择器
+ * 该类通过随机数生成工作ID
+ */
+class RandomWorkIdChoose: AbstractWorkIdChooseTemplate(), InitializingBean {
+    /**
+     * 选择工作ID
+     * @return 返回工作ID封装
+     */
+    override fun chooseWorkId(): WorkIdWrapper {
+        // 生成随机工作ID
+        val (start, end) = arrayOf(0, 31)
+        return WorkIdWrapper(getRandom(start, end), getRandom(start, end))
+    }
+
+    /**
+     * 初始化工作ID选择器
+     */
+    override fun afterPropertiesSet() {
+        chooseAndInit()
+    }
+
+    /**
+     * 生成随机数
+     * @param start 起始值
+     * @param end 结束值
+     * @return 返回随机数
+     */
+    companion object {
+        private fun getRandom(start: Int, end: Int): Long {
+            return (Math.random() * (end - start + 1) + start).toLong()
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
