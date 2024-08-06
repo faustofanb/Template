@@ -9,7 +9,7 @@ import java.util.function.Function
  * @param current 当前页码，默认为1。
  * @param size 每页的记录数，默认为10。
  */
-data class PageRequest(private val current: Long = 1L, private val size: Long = 10L)
+data class PageRequest(var current: Long = 1L, var size: Long = 10L)
 
 /**
  * 分页响应类，用于承载分页后的数据及分页信息。
@@ -20,10 +20,10 @@ data class PageRequest(private val current: Long = 1L, private val size: Long = 
  * @param records 分页后的数据列表。
  */
 data class PageResponse<T>(
-    val current: Long = 1L,
-    val size: Long = 10L,
-    val total: Long = 0L,
-    val records: List<T> = emptyList()
+    var current: Long = 1L,
+    var size: Long = 10L,
+    var total: Long = 0L,
+    var records: List<T> = emptyList()
 ) : Serializable {
     companion object {
         /**
@@ -40,7 +40,7 @@ data class PageResponse<T>(
      * @return 转换后的分页响应。
      */
     fun <R> convert(mapper: Function<in T, out R>): PageResponse<R> {
-        val collect: List<R> = this.records.stream().map(mapper).toList()
+        var collect: List<R> = this.records.stream().map(mapper).toList()
         return PageResponse(records = collect)
     }
 }
