@@ -12,10 +12,10 @@ import java.io.Serializable
  * @param requestId 请求的唯一标识，可能为null。
  */
 class Result<T>(
-    val code: String? = null,
-    val message: String? = null,
-    val data: T? = null,
-    val requestId: String? = null
+    private val code: String? = null,
+    private val message: String? = null,
+    private val data: T? = null,
+    private val requestId: String? = null
 ) : Serializable {
     companion object {
         /**

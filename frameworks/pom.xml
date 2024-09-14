@@ -28,6 +28,7 @@
         <module>log</module>
         <module>distributedid</module>
         <module>database</module>
+        <module>web</module>
     </modules>
 
 </project>
