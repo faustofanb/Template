@@ -115,6 +115,7 @@ interface DistributedCache : Cache {
      */
     fun put(key: String, value: Any, timeout: Long, timeUnit: TimeUnit)
 
+    fun put(key: String, value: Any, timeout: Long)
     /**
      * 安全地将键值对放入缓存，提供了布隆过滤器来避免重复数据。
      *

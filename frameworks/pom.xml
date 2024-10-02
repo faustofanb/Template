@@ -29,6 +29,7 @@
         <module>distributedid</module>
         <module>database</module>
         <module>web</module>
+        <module>idempotent</module>
     </modules>
 
 </project>

@@ -92,7 +92,7 @@ class StringRedisTemplateProxy(
      * @param timeout 过期时间
      * @param timeUnit 时间单位
      */
-    override fun put(key: String, value: Any, timeout: Long, timeUnit: TimeUnit) {
+    override fun put(key: String, value: Any, timeout: Long, timeUnit: TimeUnit ) {
         val actualValue = if (value is String) value else JSON.toJSONString(value)
         stringRedisTemplate.opsForValue().set(
             key,
@@ -100,6 +100,10 @@ class StringRedisTemplateProxy(
             timeout,
             timeUnit
         )
+    }
+
+    override fun put(key: String, value: Any, timeout: Long) {
+        put(key, value, timeout, redisProperties.valueTimeUnit)
     }
 
     /**
